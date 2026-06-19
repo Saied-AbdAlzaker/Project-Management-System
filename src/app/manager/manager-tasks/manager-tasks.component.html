@@ -1,0 +1,77 @@
+<section>
+  <div class="page-header shadow-sm">
+    <h3>Tasks</h3>
+    <button routerLink="/dashboard/manager/tasks/add" class="primary px-3">
+      <span class="fa-solid fa-plus mx-2"></span>
+      <span>Add New Task</span>
+    </button>
+  </div>
+  <div class="table-card container py-5">
+    <div class="bg-whiteColor p-3">
+        <div class="w-100">
+          <mat-form-field class="bg-gray rounded-pill w-50">
+            <mat-label >Select an option</mat-label>
+            <mat-select   [(ngModel)]="statusID" (selectionChange)="getAllTasks()" disableRipple>
+              <ng-container *ngFor="let status of statusData" >
+              <mat-option  [value]="statusData.indexOf(status)">{{status}}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <!-- <h2>{{statusID}}</h2> -->
+        </div>
+    </div>
+    <table class="table table-striped custom-table">
+      <thead>
+        <th>Title</th>
+        <th>status</th>
+        <th>user name</th>
+        <th>project</th>
+        <th>Date Created</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listTasks">
+          <td>{{ item.title }}</td>
+          <td>
+            <span class="status" [ngClass]="{
+                ToDo: item.status == 'ToDo',
+                InProgress: item.status == 'InProgress',
+                Done: item.status == 'Done'}">
+              {{ item.status }}
+            </span>
+          </td>
+          <td>{{ item.employee.userName }}</td>
+          <td>{{ item.project.title }}</td>
+          <td>{{ item.creationDate | date : "dd-MM-yyyy" }}</td>
+          <td>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="['/dashboard/manager/tasks/view', item.id]">
+                <mat-icon>visibility</mat-icon>
+                <span>View</span>
+              </button>
+              <button mat-menu-item [routerLink]="['/dashboard/manager/tasks/edit', item.id]">
+                <mat-icon>edit-square</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="openDeleteDialog(item)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <mat-paginator [length]="tableData?.totalNumberOfRecords" 
+          [pageSizeOptions]="[5,10, 50, 100]" [pageSize]="tableData?.pageSize"
+           (page)="handlePageEvent($event)" [pageIndex]="pageIndex" 
+           aria-label="Select page">
+      </mat-paginator>
+
+    </div>
+  </div>
+</section>

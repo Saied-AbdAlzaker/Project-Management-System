@@ -1,0 +1,52 @@
+<section>
+  <div class="page-header">
+    <div>
+      <a routerLink="../" >
+        <i class="fa-solid fa-angle-left"></i>
+        <span>View All Projects</span>
+      </a>
+      <h5>
+        <span *ngIf="isUpdatePage==false">Add a new project</span>
+        <span *ngIf="isUpdatePage==true">update {{projectData?.title}} project</span>
+      </h5>
+    </div>
+  </div>
+
+  <div class="container">
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm)">
+      <div class="form-card ">
+        <div class="mt-5">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Title</mat-label>
+            <input formControlName="title" matInput>
+          </mat-form-field>
+          
+          <span *ngIf="projectForm.get('title')?.errors && projectForm.get('title')?.touched " class="text-danger mb-3"  >
+            <span *ngIf="projectForm.get('title')?.errors?.['required']">title is required</span>
+            <span *ngIf="projectForm.get('title')?.errors?.['pattern']">title must have capital,small letters length(6-10)</span>
+          </span>
+        </div>
+
+        <div class="my-3">
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <input formControlName="description" matInput>
+            <textarea matInput></textarea>
+          </mat-form-field>
+          <span *ngIf="projectForm.get('description')?.errors && projectForm.get('description')?.touched " class="text-danger mb-3"  >
+            <span *ngIf="projectForm.get('description')?.errors?.['required']">description is required</span>
+            <span *ngIf="projectForm.get('description')?.errors?.['pattern']">description must have capital,small letters length(20 or more)</span>
+          </span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <button [routerLink]="['/dashboard/manager/projects']" type="button" class="outline-primary w-25">Cancel</button>
+          <button  class="primary w-25">Save</button>
+
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

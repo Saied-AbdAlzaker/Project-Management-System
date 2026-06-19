@@ -1,0 +1,19 @@
+input {
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    color: black !important;
+}}
+// .mdc-floating-label--required:not(.mdc-floating-label--hide-required-marker)::after {
+//   display: none !important;
+// }
+
+
+.circle-preview {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background-color: bisque;
+  border: 4px dashed #ef9b28;
+  img{
+    object-fit: cover;
+  }
+}

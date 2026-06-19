@@ -1,0 +1,71 @@
+<section>
+  <div class="page-header">
+    <div>
+      <a routerLink="/dashboard/manager/tasks">
+        <i class="fa-solid fa-angle-left"></i>
+        <span>View All Tasks</span>
+      </a>
+      <h5>
+        <span *ngIf="isAddMode==true">Add a new task</span>
+        <span *ngIf="isEditMode==true">Edit {{taskData?.title}}</span>
+        <span *ngIf="isViewMode==true">{{taskData?.title}}</span>
+      </h5>
+    </div>
+  </div>
+
+  <div class="container">
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit(taskForm)">
+      <div class="form-card ">
+        <div class="mt-5">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Title</mat-label>
+            <input formControlName="title" matInput class="text-dark">
+          </mat-form-field>
+          <span *ngIf="taskForm.get('title')?.errors && taskForm.get('title')?.touched " class="text-danger mb-3"  >
+            <span *ngIf="taskForm.get('title')?.errors?.['required']">title is required</span>
+            <span *ngIf="taskForm.get('title')?.errors?.['pattern']">title must have capital,small letters length(6-10)</span>
+          </span>
+        </div>
+
+        <div class="my-3">
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <input formControlName="description" matInput class="text-dark">
+            <textarea matInput></textarea>
+          </mat-form-field>
+          <span *ngIf="taskForm.get('description')?.errors && taskForm.get('description')?.touched " class="text-danger mb-3"  >
+            <span *ngIf="taskForm.get('description')?.errors?.['required']">description is required</span>
+            <span *ngIf="taskForm.get('description')?.errors?.['pattern']">description must have capital,small letters length(20 or more)</span>
+          </span>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>User</mat-label>
+              <mat-select formControlName="employeeId" class="text-dark">
+                <mat-option *ngFor="let user of listUsers" [value]="user.id">{{user.userName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Project</mat-label>
+              <mat-select formControlName="projectId" class="text-dark">
+                <mat-option *ngFor="let project of listProjects" [value]="project.id">{{project.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <hr>
+        <div class="d-flex justify-content-between">
+          <button [routerLink]="['/dashboard/manager/tasks']" type="button" class="outline-primary w-25">Cancel</button>
+          <button class="primary w-25" *ngIf="isAddMode==true">Add</button>
+          <button class="primary w-25" *ngIf="isEditMode==true">Update</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

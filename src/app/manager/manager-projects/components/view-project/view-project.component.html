@@ -1,0 +1,38 @@
+<section>
+  <div class="page-header">
+    <div>
+      <a (click)="onNoClick()" class="cursor">
+        <i class="fa-solid fa-angle-left"></i>
+        <span>View Project</span>
+      </a>
+      <h3 class="ms-5">{{data.title}}</h3>
+    </div>
+  </div>
+
+  <div class="container">
+    <form [formGroup]="projectForm">
+      <div class="form-card ">
+        <div class="mt-5">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="text-secondry">Title</mat-label>
+            <input [(ngModel)]="data.title" formControlName="title" class="text-dark" matInput>
+          </mat-form-field>
+        </div>
+
+        <div class="my-3">
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label class="text-secondry">Description</mat-label>
+            <input [(ngModel)]="data.description" formControlName="description" class="text-dark" matInput>
+            <!-- <textarea matInput></textarea> -->
+          </mat-form-field>
+        </div>
+        <hr>
+        <div class="text-center">
+          <button (click)="onNoClick()" type="button" class="primary w-25">Cancel</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
